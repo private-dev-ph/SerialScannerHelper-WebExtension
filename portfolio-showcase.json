@@ -1,0 +1,80 @@
+{
+  "title": "Serial Scanner Helper v1.0",
+  "summary": "A Manifest V3 browser extension that recognizes keyboard-emulated QR scanner bursts, extracts the correct serial value, and stores approved serials locally for future scans.",
+  "status": "active",
+  "internalDemoAvailable": true,
+  "images": [
+    {
+      "src": "public/assets/Demo-SerialScanner.apng",
+      "alt": "Serial Scanner Helper scanning a QR payload and extracting a serial number",
+      "caption": "Live scanner workflow demonstration"
+    },
+    {
+      "src": "public/assets/SerialScannerLogo.png",
+      "alt": "Serial Scanner Helper logo showing a scanner reading a QR code",
+      "caption": "Project logo"
+    }
+  ],
+  "problem": "A QR scanner gun behaves like a very fast keyboard, so a single scan can enter a multi-value payload such as C1X83B200HK,PFLBN00WBAM0CJ,B4B68622CD75 into a web form. The receiving field needs only PFLBN00WBAM0CJ, and manual cleanup creates unnecessary friction while ordinary key events do not reveal whether the input came from a person or a scanner.",
+  "purpose": "Build a lightweight browser-side bridge between physical scanner hardware and ordinary web forms. The extension detects scanner-like timing, validates the payload against configurable serial rules, places only the trusted serial into the active field, and keeps a private local database of approved values for later recognition.",
+  "keyFeatures": [
+    "Detects rapid keyboard-emulated scanner bursts using minimum length, inter-key timing, total sequence duration, Enter or Tab terminators, and idle completion.",
+    "Extracts the configured candidate from delimited QR payloads and supports prefix stripping, embedded serial detection, long serial rules, legacy formats, modern prefix maps, known values, and learned signatures.",
+    "Prevents a recognized multi-field payload from leaking into the page, then replaces the field with the extracted serial and dispatches input and change events for compatibility with standard forms and frontend frameworks.",
+    "Works with text inputs, text areas, contenteditable elements, and all frames covered by the extension content script.",
+    "Records successful scanner captures and manually approved exceptions in a local serial database with timestamps, source, scan count, and a conservative learned signature.",
+    "Provides a popup for turning scanner capture on or off, loading a validated local pattern file, resetting to the bundled rules, and adding serial exceptions.",
+    "Keeps deployment-specific serial rules outside the JavaScript bundle so local or proprietary configurations can be updated without changing the scanner implementation.",
+    "Runs without camera access, a remote service, or an external account; serial data remains in the browser profile's chrome.storage.local store."
+  ],
+  "techStack": [
+    "TypeScript",
+    "Chrome Manifest V3 and WebExtension APIs",
+    "Chrome content scripts, service worker messaging, and chrome.storage.local",
+    "esbuild for bundling and ZIP packaging",
+    "Vitest for unit testing",
+    "JSON-based runtime serial pattern configuration",
+    "MIT License"
+  ],
+  "role": "End-to-end project owner: defined the scanner filtering workflow, translated the serial rules into a browser-safe configuration and parser, implemented the content script and service worker flow, built the local database and learning behavior, designed the popup controls, added the branding and demo assets, and documented the project for portfolio and handoff use.",
+  "technicalHighlights": [
+    "A ScannerInputBuffer separates scanner-like bursts from ordinary typing using configurable timing thresholds. Slow or invalid input is replayed normally, while valid scans remain buffered until the serial decision is complete.",
+    "ExternalSerialPayloadParser validates candidates conservatively. It checks known values and learned signatures before applying the configured long, legacy, modern, prefix-stripping, and embedded-serial rules.",
+    "The content script uses the native value setter and dispatches InputEvent plus change events, allowing browser forms and frontend frameworks to observe the extracted serial as a normal field update.",
+    "The background service worker combines bundled or uploaded rules with local database values, then broadcasts updated configuration to open tabs without requiring a page refresh.",
+    "The layered architecture keeps browser APIs at the infrastructure boundary, making the scanner buffer, parser, configuration validation, and database behavior testable without a live browser.",
+    "Serial learning uses an exact length, four-character prefix, and letter/digit shape signature instead of generating an unrestricted regular expression from one observed value."
+  ],
+  "challengesAndSolutions": [
+    {
+      "challenge": "A scanner gun and a person both produce keyboard events, so the browser does not provide a direct hardware-level identity for the input source.",
+      "solution": "The extension treats timing as a practical signal. It measures inter-key gaps and total burst duration, requires a minimum character count, and supports terminators or idle completion. This filters normal slow typing while accepting the scanner's rapid burst pattern."
+    },
+    {
+      "challenge": "Allowing the raw scanner payload to reach the page before replacing it caused multi-value strings and synthetic updates to reach form controls in the wrong order.",
+      "solution": "The content script buffers scanner characters and prevents their default input. Once parsing succeeds, it writes only the extracted serial and dispatches browser-compatible input and change events. If parsing fails, it replays the buffered characters as normal input."
+    },
+    {
+      "challenge": "Serial formats vary across devices and deployments, while some rules are proprietary and should not be hard-coded into the bundle.",
+      "solution": "Validation is driven by an external JSON configuration with a safe example fallback. The popup validates uploaded configurations, stores them as local overrides, and can restore the bundled rules at any time."
+    },
+    {
+      "challenge": "A learned serial rule that is too broad could accept unrelated values and create a data-quality problem.",
+      "solution": "Each stored serial produces a conservative signature based on length, first four characters, and letter/digit shape. Future candidates must match the full signature, while the exact known value is retained as well."
+    }
+  ],
+  "resultsImpact": [
+    "The representative payload C1X83B200HK,PFLBN00WBAM0CJ,B4B68622CD75 is reduced to the expected field value PFLBN00WBAM0CJ.",
+    "The receiving web form gets one clean serial value and normal input/change events instead of the full scanner payload, reducing manual cleanup and preserving framework compatibility.",
+    "Successful serials persist locally with first-seen and last-seen timestamps, scan counts, source information, and reusable learned signatures.",
+    "The v1.0.0 build produces an unpacked extension directory and a ZIP package containing the manifest, compiled scripts, popup, configuration, logo, and APNG demo asset.",
+    "The automated test suite covers scanner timing, payload extraction, serial validation, configuration parsing, and database behavior, with 15 tests passing during the v1.0 release verification."
+  ],
+  "lessonsLearned": [
+    "Keyboard-emulated hardware needs to be handled as a timed stream rather than as a special browser input type. Timing thresholds are useful, but they should remain configurable because scanner models behave differently.",
+    "Preventing raw input early is just as important as extracting the right value. Correct event ordering is what makes the extension reliable with ordinary forms and frontend frameworks.",
+    "Local configuration and local storage provide a practical balance between deployment flexibility and data privacy when serial formats or values are organization-specific.",
+    "Conservative learning is safer than trying to infer a broad pattern from a single observation. Exact values and narrow signatures make the database useful without silently widening acceptance.",
+    "Keeping the domain and application logic independent from Chrome APIs makes the core behavior easier to test, explain, and adapt to another scanner integration later."
+  ]
+}
