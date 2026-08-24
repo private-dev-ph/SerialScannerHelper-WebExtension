@@ -1,6 +1,6 @@
 # Serial Scanner Helper v1.0
 
-Serial Scanner Helper is a Manifest V3 browser extension that turns noisy keyboard-emulated QR scanner input into a clean, usable serial number.
+Serial Scanner Helper is a Manifest V3 browser extension that turns combined or noisy QR scanner input into a clean, usable serial number based on format and pattern.
 
 Many scanner guns do not behave like cameras or special-purpose peripherals. They behave like very fast keyboards. A single scan can therefore arrive as a sequence such as:
 
