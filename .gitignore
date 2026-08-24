@@ -42,6 +42,16 @@ build/Release
 node_modules/
 jspm_packages/
 
+# Browser extension artifacts
+*.crx
+*.xpi
+*.zip
+*.pem
+web-ext-artifacts/
+
+# Local proprietary scanner rule; use the checked-in example as a template
+public/serial-pattern.json
+
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
 
@@ -112,6 +122,12 @@ dist
 
 # Docusaurus cache and generated files
 .docusaurus
+
+# Editor and operating-system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
 
 # Serverless directories
 .serverless/

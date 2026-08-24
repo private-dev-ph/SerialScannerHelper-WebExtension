@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "scanner": {
+    "minimumCharacters": 8,
+    "maxInterKeyMs": 100,
+    "maxSequenceMs": 5000,
+    "completionIdleMs": 250,
+    "terminators": ["Enter", "Tab"]
+  },
+  "payload": {
+    "separators": [",", ";"],
+    "candidateIndex": 1,
+    "minimumSegments": 3
+  },
+  "serial": {
+    "requireAlphanumeric": true,
+    "normalization": "uppercase",
+    "knownValues": [],
+    "learnedPatterns": [],
+    "stripPrefixes": [],
+    "allowEmbedded": false,
+    "embeddedLength": 8,
+    "longSerial": {
+      "minLength": 18,
+      "maxLength": 18,
+      "prefixes": ["EX"],
+      "suffixes": ["99"]
+    },
+    "legacySerial": {
+      "length": 8,
+      "prefixes": ["SN"],
+      "allowPAndDigitPrefix": false
+    },
+    "modernSerial": {
+      "length": 8,
+      "requiredFirstCharacter": "E",
+      "prefixMap": {
+        "EX": ["AB"]
+      }
+    }
+  }
+}

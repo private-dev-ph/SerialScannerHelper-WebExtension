@@ -1,0 +1,26 @@
+{
+  "name": "serial-scanner-helper-web-extension",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A browser extension that extracts serial values from keyboard-emulating QR scanners.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/build.mjs --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.270",
+    "@types/node": "^22.10.0",
+    "archiver": "^7.0.1",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.8"
+  },
+  "packageManager": "npm@10"
+}

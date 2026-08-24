@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Serial Scanner Helper v1.0</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="popup-shell">
+      <header class="popup-header">
+        <div class="brand-mark">
+          <img class="brand-mark__logo" src="../assets/SerialScannerLogo.png" alt="Serial Scanner Helper logo" />
+          <div>
+            <p class="eyebrow">Serial Scanner</p>
+            <p class="version-label">v1.0</p>
+          </div>
+        </div>
+        <h1>Scanner status</h1>
+      </header>
+
+      <button
+        class="scanner-toggle is-off"
+        id="scanner-toggle"
+        type="button"
+        aria-label="Turn scanner on"
+        aria-pressed="false"
+      >
+        <span class="scanner-toggle__label" id="scanner-toggle-label">OFF</span>
+        <span class="scanner-toggle__state" id="scanner-toggle-state">Scanner off</span>
+      </button>
+
+      <p class="status" id="status" aria-live="polite">Loading scanner configuration...</p>
+
+      <section class="pattern-section" aria-labelledby="pattern-heading">
+        <div class="section-heading">
+          <div>
+            <p class="section-label" id="pattern-heading">Serial pattern</p>
+            <p class="pattern-source" id="pattern-source">Bundled file</p>
+          </div>
+          <button class="text-button" id="reset-pattern" type="button">Reset</button>
+        </div>
+        <label class="file-picker" for="pattern-file">
+          <span>Load pattern JSON</span>
+          <input id="pattern-file" type="file" accept=".json,application/json" />
+        </label>
+      </section>
+
+      <form class="database-form" id="database-form">
+        <label for="serial-input">Add serial exception</label>
+        <input id="serial-input" name="serial" type="text" autocomplete="off" spellcheck="false" required />
+        <button type="submit">Add to database</button>
+      </form>
+
+      <footer class="popup-footer status" aria-label="Project information">
+        <p>Developed by Engr. Mercurio</p>
+        <p>MIT License</p>
+      </footer>
+    </main>
+
+    <script src="./popup.js"></script>
+  </body>
+</html>
