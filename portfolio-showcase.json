@@ -2,17 +2,16 @@
   "title": "Serial Scanner Helper",
   "summary": "Manifest V3 browser extension that turns combined or noisy QR scanner input into a clean, usable serial number based on format and pattern, and stores approved serials locally for future scans.",
   "status": "active",
+  "logo":{
+    "src": "public/assets/SerialScannerLogo.png",
+    "alt": "Serial Scanner Helper logo showing a scanner reading a QR code"
+  },
   "internalDemoAvailable": true,
   "images": [
     {
       "src": "public/assets/Demo-SerialScanner.apng",
       "alt": "Serial Scanner Helper scanning a QR payload and extracting a serial number",
       "caption": "Live scanner workflow demonstration"
-    },
-    {
-      "src": "public/assets/SerialScannerLogo.png",
-      "alt": "Serial Scanner Helper logo showing a scanner reading a QR code",
-      "caption": "Project logo"
     }
   ],
   "problem": "A QR scanner gun behaves like a very fast keyboard, so a single scan can enter a multi-value payload such as C1X83B200HK,PFLBN00WBAM0CJ,B4B68622CD75 into a web form. The receiving field needs only PFLBN00WBAM0CJ, and manual cleanup creates unnecessary friction while ordinary key events do not reveal whether the input came from a person or a scanner.",
