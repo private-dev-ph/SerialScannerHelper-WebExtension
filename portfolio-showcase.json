@@ -28,13 +28,18 @@
     "Runs without camera access, a remote service, or an external account; serial data remains in the browser profile's chrome.storage.local store."
   ],
   "techStack": [
-    "TypeScript",
-    "Chrome Manifest V3 and WebExtension APIs",
-    "Chrome content scripts, service worker messaging, and chrome.storage.local",
-    "esbuild for bundling and ZIP packaging",
-    "Vitest for unit testing",
-    "JSON-based runtime serial pattern configuration",
-    "MIT License"
+    "TypeScript 5.7",
+    "HTML5",
+    "CSS3",
+    "Chrome Extensions Manifest V3",
+    "Chrome WebExtension APIs: content scripts, service workers, runtime messaging, tabs, and storage",
+    "Chrome Storage API: chrome.storage.local",
+    "Node.js 20+",
+    "npm 10",
+    "esbuild 0.24 for bundling and watch mode",
+    "Vitest 2.1 for unit testing",
+    "Archiver 7 for ZIP packaging",
+    "JSON-based runtime serial pattern configuration"
   ],
   "role": "End-to-end project owner: defined the scanner filtering workflow, translated the serial rules into a browser-safe configuration and parser, implemented the content script and service worker flow, built the local database and learning behavior, designed the popup controls, added the branding and demo assets, and documented the project for portfolio and handoff use.",
   "technicalHighlights": [
