@@ -1,6 +1,6 @@
 {
-  "title": "Serial Scanner Helper v1.0",
-  "summary": "A Manifest V3 browser extension that recognizes keyboard-emulated QR scanner bursts, extracts the correct serial value, and stores approved serials locally for future scans.",
+  "title": "Serial Scanner Helper",
+  "summary": "Manifest V3 browser extension that turns combined or noisy QR scanner input into a clean, usable serial number based on format and pattern, and stores approved serials locally for future scans.",
   "status": "active",
   "internalDemoAvailable": true,
   "images": [
