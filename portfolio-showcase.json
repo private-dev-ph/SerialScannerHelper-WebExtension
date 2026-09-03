@@ -6,7 +6,7 @@
     "src": "public/assets/SerialScannerLogo.png",
     "alt": "Serial Scanner Helper logo showing a scanner reading a QR code"
   },
-  "internalDemoAvailable": true,
+  "internalDemoAvailable": false,
   "images": [
     {
       "src": "public/assets/Demo-SerialScanner.apng",
